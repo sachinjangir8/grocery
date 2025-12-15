@@ -4,7 +4,7 @@ interface IUser {
     _id?: mongoose.Schema.Types.ObjectId;
     name: string;
     email: string;
-    password: string;
+    password?: string;
     mobile?: string;
     role: "user" | "admin" | "deliveryBoy";
     createdAt: Date;
@@ -28,7 +28,7 @@ const userSchema = new mongoose.Schema<IUser>(
             },
         mobile: { 
             type: String,
-             required: true,
+             required: false,
               unique: false 
             },
         role: {
@@ -40,7 +40,8 @@ const userSchema = new mongoose.Schema<IUser>(
     },
     { timestamps: true }
 );
-// in ts we use it beacuse of it create a new model if not exists otherwise it will throw an error
+// in ts we use it beacuse of it create a new model if not exists otherwise it will throw an error beacuse of the hot reloading
 const User = mongoose.models.User || mongoose.model<IUser>("User", userSchema);
 
 export default User; 
+

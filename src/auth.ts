@@ -3,7 +3,7 @@ import Credentials from "next-auth/providers/credentials"
 import Email from "next-auth/providers/email"
 import Google from "next-auth/providers/google"
 import connectDB from "./lib/db"
-import User from "./models/User.model"
+import User from "./model/User.model"
 import bcrypt from "bcryptjs"
 import { NextResponse } from "next/server"
  
