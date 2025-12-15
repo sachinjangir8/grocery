@@ -48,11 +48,33 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
                 return null;
             }
         },
-      })
+      }),
     //   google auth
+    Google({
+        clientId:process.env.GOOGLE_CLIENT_ID as string,
+        clientSecret:process.env.GOOGLE_CLIENT_SECRET as string
+    })
   ],
   callbacks:{
     // ye token ke andr user ka data dalega
+    async signIn({user, account}){
+      if(account?.provider==="google"){
+        await connectDB();
+        const dbuser=await User.findOne({email:user.email});
+        if(!dbuser){
+          await User.create({
+            name:user.name as string,
+            email:user.email as string,
+            password:"", // blank password for google auth users
+            image:user.image as string,
+          })
+        }
+        user.id=dbuser._id.toString();
+        user.role=dbuser.role;
+      }
+      return true;
+    },
+
     jwt({token,user}){
         if(user){
             token.id=user.id,

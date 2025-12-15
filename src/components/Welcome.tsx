@@ -37,7 +37,7 @@ function Welcome({nextstep}: proptype) {
       initial={{ opacity: 0, y:20 }}
         animate={{ opacity: 1, y:0 }}
         transition={{ duration: 2 }}
-        className='mt-10 px-6 py-3 bg-yellow-500 text-white rounded-4xl flex items-center gap-2 hover:bg-yellow-600 transition-colors duration-300 '
+        className='mt-10 px-6 py-3 bg-yellow-500 text-white rounded-4xl flex items-center gap-2 hover:bg-yellow-600 transition-colors duration-300 cursor-pointer '
         onClick={()=>nextstep(2)}
         >
         Next

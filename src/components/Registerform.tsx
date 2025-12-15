@@ -1,21 +1,12 @@
-import {
-  ArrowLeft,
-  EyeClosed,
-  EyeClosedIcon,
-  EyeIcon,
-  EyeOff,
-  Key,
-  Leaf,
-  LogIn,
-  Mail,
-  User,
-} from "lucide-react";
+import {ArrowLeft,EyeClosed, EyeClosedIcon,EyeIcon,EyeOff,Key,Leaf, Loader2, LogIn,Mail,User} from "lucide-react";
 import React from "react";
 import { motion } from "motion/react";
 import { useState } from "react";
 import Image from "next/image";
 import google from "@/assets/google.png";
 import axios from "axios";
+import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
 type proptype = {
   prevstep: (step: number) => void;
 };
@@ -25,8 +16,11 @@ function Registerform({ prevstep }: proptype) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const router=useRouter();
   const handleregister = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const result = await axios.post("/api/auth/register", {
         name,
@@ -34,9 +28,11 @@ function Registerform({ prevstep }: proptype) {
         password,
       });
 
-      console.log(result.data);
+      // console.log(result.data);
+      setLoading(false);
     } catch (error: any) {
       const message = error.response?.data?.message || "Registration failed";
+      setLoading(false);  
       alert(message);
     }
   };
@@ -117,7 +113,7 @@ function Registerform({ prevstep }: proptype) {
           return (
             <button
               type="submit"
-              disabled={!isDisabled}
+              disabled={!isDisabled  || loading}
               className={`w-full font-semibold py-3 rounded-xl transition-all duration-200 shadow-md inline-flex items-center justify-center gap-2
         ${
           isDisabled
@@ -125,7 +121,7 @@ function Registerform({ prevstep }: proptype) {
             : "bg-gray-500 text-gray-400 cursor-not-allowed"
         } `}
             >
-              register
+              {loading ? <Loader2 className="w-5 h-5 animate-spin " ></Loader2> : " register"}
             </button>
           );
         })()}
@@ -136,16 +132,18 @@ function Registerform({ prevstep }: proptype) {
         </div>
 
         <button
+        onClick={()=>{signIn("google")}}
           type="button"
           className="w-full font-semibold py-3 rounded-xl border border-gray-300 hover:bg-gray-100 transition-colors
-         duration-200 shadow-md inline-flex items-center justify-center gap-2 "
+         duration-200 shadow-md inline-flex items-center justify-center gap-2 cursor-pointer "
         >
           <Image src={google} alt="google logo" className="w-5 h-5 " />
           register with google
         </button>
       </motion.form>
 
-      <p className="text-gray-700 mt-6 text-sm flex items-center gap-1 cursor-pointer ">
+      <p className="text-gray-700 mt-6 text-sm flex items-center gap-1 cursor-pointer "
+        onClick={()=>router.push('/login')} >
         already have an account ?<LogIn className="w-4 h-4"></LogIn>{" "}
         <span className="text-green-700  ">sign in</span>{" "}
       </p>
