@@ -17,8 +17,9 @@ function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const router=useRouter();
-  const session=useSession();
-  // console.log(session);
+  const { data: session, status } = useSession();
+  console.log("status:", status);
+  console.log("session:", session);
   const handlelogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -26,7 +27,9 @@ function Login() {
         await signIn("credentials", {
             email,
             password,
+            redirect:false,
         })
+        router.push("/");
         setLoading(false);
     } catch (error) {
         console.log("Login error:", error);
@@ -111,16 +114,17 @@ function Login() {
           <span className="flex-1 h-px bg-gray-400 ml-1"></span>
         </div>
 
+      </motion.form>
+
         <button
-        onClick={()=>{signIn("google")}}
+        onClick={()=>{signIn("google",{callbackUrl:"/"})}}
           type="button"
-          className="w-full font-semibold py-3 rounded-xl border border-gray-300 hover:bg-gray-100 transition-colors
+          className="w-98 font-semibold py-3 rounded-xl border border-gray-300 hover:bg-gray-100 transition-colors
          duration-200 shadow-md inline-flex items-center justify-center gap-2 cursor-pointer "
         >
           <Image src={google} alt="google logo" className="w-5 h-5 " />
           continue with google
         </button>
-      </motion.form>
 
       <p className="text-gray-700 mt-6 text-sm flex items-center gap-1 cursor-pointer "
       onClick={()=>router.push('/register')} >

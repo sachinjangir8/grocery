@@ -28,7 +28,7 @@ function Registerform({ prevstep }: proptype) {
         password,
       });
 
-      // console.log(result.data);
+      router.push("/login");
       setLoading(false);
     } catch (error: any) {
       const message = error.response?.data?.message || "Registration failed";
@@ -131,16 +131,16 @@ function Registerform({ prevstep }: proptype) {
           <span className="flex-1 h-px bg-gray-400 ml-1"></span>
         </div>
 
-        <button
-        onClick={()=>{signIn("google")}}
-          type="button"
+        <div
+        onClick={()=>{signIn("google",{callbackUrl:"/"})}}
           className="w-full font-semibold py-3 rounded-xl border border-gray-300 hover:bg-gray-100 transition-colors
          duration-200 shadow-md inline-flex items-center justify-center gap-2 cursor-pointer "
         >
           <Image src={google} alt="google logo" className="w-5 h-5 " />
           register with google
-        </button>
+        </div>
       </motion.form>
+    
 
       <p className="text-gray-700 mt-6 text-sm flex items-center gap-1 cursor-pointer "
         onClick={()=>router.push('/login')} >

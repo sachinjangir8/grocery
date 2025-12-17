@@ -1,6 +1,5 @@
 import NextAuth from "next-auth"
 import Credentials from "next-auth/providers/credentials"
-import Email from "next-auth/providers/email"
 import Google from "next-auth/providers/google"
 import connectDB from "./lib/db"
 import User from "./model/User.model"
@@ -26,7 +25,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         },
         async authorize(credentials, request) {
             try {
-                await connectDB
+                await connectDB();
                 const email=credentials.email
                 const password=credentials.password as string
                 const user=await User.findOne({email})
@@ -63,10 +62,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         const dbuser=await User.findOne({email:user.email});
         if(!dbuser){
           await User.create({
-            name:user.name as string,
-            email:user.email as string,
+            name:user.name ,
+            email:user.email ,
             password:"", // blank password for google auth users
-            image:user.image as string,
+            image:user.image 
           })
         }
         user.id=dbuser._id.toString();
@@ -102,9 +101,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   },
   session:{
     strategy:"jwt",
-    maxAge:10*24*60*60*1000
+    maxAge:10*24*60*60
   },
-  secret:process.env.JWT_SECRET
+  secret:process.env.NEXTAUTH_SECRET
 })
 // connectdb
 // email check
