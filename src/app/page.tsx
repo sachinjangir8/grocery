@@ -1,5 +1,6 @@
 import { auth } from "@/auth";
 import EditRoleMoblie from "@/components/EditRoleMoblie";
+import Nav from "@/components/Nav";
 import connectDB from "@/lib/db";
 import User from "@/model/User.model";
 import { redirect } from "next/navigation";
@@ -19,11 +20,13 @@ async function Home() {
   if (incomplete) {
     return <EditRoleMoblie />;
   }
-
+ const planeuser=JSON.parse(JSON.stringify(user));
+ console.log("User in Home page:", planeuser);
+ console.log("Type of user in Home page:", user);
   return (
-    <div>
-      <h1>hello  sachin i am home</h1>
-    </div>
+    <>
+      <Nav user={planeuser} />
+    </>
   );
 }
 
