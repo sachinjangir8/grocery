@@ -6,7 +6,7 @@ import User from "./model/User.model"
 import bcrypt from "bcryptjs"
 import { NextResponse } from "next/server"
  
-// we will get the credentials from frontend
+// we will get the credentials from frontend  (auth is used to access the session in backend )
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
     // user provider sign-in /login complete
