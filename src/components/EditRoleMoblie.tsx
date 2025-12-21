@@ -2,8 +2,9 @@
 import React from 'react'
 import { motion, scale } from "motion/react"
 import { ArrowRight, icons } from 'lucide-react'
-import { redirect } from "next/navigation";
 import axios from 'axios'
+import { useRouter } from 'next/router'
+import { useSession } from 'next-auth/react'
 function EditRoleMoblie() {
   const [role,setRole]=React.useState([
     // id me vo jo backend me bhejna hh
@@ -13,6 +14,8 @@ function EditRoleMoblie() {
   ])
   const [selectedRole,setSelectedRole]=React.useState<string| null>(null);
   const [mobile,setMobile]=React.useState<string>("");
+  const router=useRouter()
+  const{update}=useSession()
   const handleedit=async()=>{
     try {
       const resuilt=await axios.post("/api/user/edit-role-mobile",{
@@ -20,11 +23,12 @@ function EditRoleMoblie() {
         role:selectedRole
 
       })
+      await update({role:selectedRole})
       // console.log("Response from edit role mobile API:", resuilt.data);
       if(resuilt.status===200){
         // redirect to home page
         // window.location.href="/";
-        redirect("/");
+        router.push("/")
         
       }
     } catch (error) {

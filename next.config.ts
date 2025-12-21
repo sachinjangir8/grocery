@@ -24,7 +24,11 @@ const nextConfig: NextConfig = {
       },
       {
         hostname:"cdn.britannica.com"
+      },
+      {
+        hostname:"media.istockphoto.com"
       }
+      
     ]
   }
 };

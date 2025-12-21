@@ -26,6 +26,18 @@ export  async function proxy(req: NextRequest) {
         loginUrl.searchParams.set('callbackUrl',req.url);
         return NextResponse.redirect(loginUrl);
     }
+
+    // here we will do role based route access
+    const role=token.role
+    if(pathname.startsWith("/user") && role!=="user"){
+      return NextResponse.redirect(new URL("/Unauthorized",req.url))
+    }
+    if(pathname.startsWith("/admin") && role!=="admin"){
+      return NextResponse.redirect(new URL("/Unauthorized",req.url))
+    }
+    if(pathname.startsWith("/delivery") && role!=="deliveryBoy"){
+      return NextResponse.redirect(new URL("/Unauthorized",req.url))
+    }
     return NextResponse.next();
 }
 
