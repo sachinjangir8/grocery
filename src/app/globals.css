@@ -1,1 +1,10 @@
 @import "tailwindcss";
+:root {
+  --toastify-color-success: #10b981; /* This overrides the default green */
+}
+
+/* Optional: Make the font match your app */
+.Toastify__toast {
+  font-family: inherit;
+  border-radius: 12px;
+}

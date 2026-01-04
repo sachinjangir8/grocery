@@ -3,7 +3,7 @@ import React from 'react'
 import { motion, scale } from "motion/react"
 import { ArrowRight, icons } from 'lucide-react'
 import axios from 'axios'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 import { useSession } from 'next-auth/react'
 function EditRoleMoblie() {
   const [role,setRole]=React.useState([

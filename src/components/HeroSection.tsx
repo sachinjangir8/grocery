@@ -16,6 +16,7 @@ function HeroSection() {
       btntxt: "Shop Now",
       bg: "https://www.istockphoto.com/photos/fresh-vegetables",
     },
+
     {
       id: 2,
       Icon: <Truck size={48} className="text-green-500 mb-4" />,
@@ -62,6 +63,7 @@ function HeroSection() {
           <div className="absolute inset-0 bg-black/50 backdrop-blue-[1px]" />
         </motion.div>
       </AnimatePresence>
+    
       <div className="absoluten inset-0 flex items-center justify-center text-center text-white px-6">
         <motion.div
           initial={{ y: 30, opacity: 0 }}

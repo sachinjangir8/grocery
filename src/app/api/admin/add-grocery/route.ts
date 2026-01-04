@@ -3,6 +3,7 @@ import uploadOnCloudnary from "@/lib/Cloudinary";
 import uploadOnCloud from "@/lib/Cloudinary";
 import connectDB from "@/lib/db";
 import Grocery from "@/model/grocery.model";
+import { h1, h3 } from "motion/react-client";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request:NextRequest){
@@ -15,12 +16,13 @@ export async function POST(request:NextRequest){
                 {status:400}
             )
         }
+        
         const formdata=await request.formData()
         const name=formdata.get("name") as string
         const category=formdata.get("category") as string
         const unit=formdata.get("unit") as string
         const price=formdata.get("price") as string
-        const file=formdata.get("file") as Blob | null
+        const file=formdata.get("image") as Blob | null
 
         let imgurl
         if(file){
@@ -32,7 +34,7 @@ export async function POST(request:NextRequest){
         })
             return NextResponse.json(
                 {grocery},
-                {status:400}
+                {status:200}
             )
 
     } catch (error) {

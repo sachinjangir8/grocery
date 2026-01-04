@@ -17,6 +17,7 @@ const uploadOnCloudnary=async(file:Blob):Promise<String | null >=>{
         const arrayBuffer=await file.arrayBuffer()
         const buffer=Buffer.from(arrayBuffer)
         return new Promise((resolve,reject)=>{
+            // it will upload the img to the cloudinary in chunks
             const uploadStream=cloudinary.uploader.upload_stream(
                 {resource_type:"auto"},
                 (error,result)=>{
