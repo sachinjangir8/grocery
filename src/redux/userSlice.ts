@@ -29,11 +29,11 @@ const userSlice=createSlice({
     initialState,
     // reducers is used for how to update the state or how to change the state of the store using actions (reducer will change the data state in it)
     reducers:{
-        setUserDate:(state,action)=>{
+        setUserData:(state,action)=>{
             state.userData=action.payload
         }
     },
 })
 
-export const {setUserDate}=userSlice.actions
+export const {setUserData}=userSlice.actions
 export default userSlice.reducer

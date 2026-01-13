@@ -4,6 +4,7 @@ import "./globals.css";
 import { SessionProvider } from "next-auth/react";
 import Provider from "@/Provider";
 import StoreProvider from "@/redux/StoreProvider";
+import InitUser from "@/initUser";
 // we can not make it clint component because it is layout file
 // layout file only for server side rendering
 // but we can use client component inside layout file
@@ -22,6 +23,7 @@ export default function RootLayout({
       <body className="w-full min-h-screen bg-linear-to-b from-green-200 to-white " >
         <Provider>
           <StoreProvider>
+            <InitUser />
             {children}
           </StoreProvider>
         </Provider>
