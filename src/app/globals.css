@@ -8,3 +8,11 @@
   font-family: inherit;
   border-radius: 12px;
 }
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+/* hide scrollbar for IE,edge and firefox */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

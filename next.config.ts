@@ -27,6 +27,8 @@ const nextConfig: NextConfig = {
       },
       {
         hostname:"media.istockphoto.com"
+      },{
+        hostname:"res.cloudinary.com"
       }
       
     ]
