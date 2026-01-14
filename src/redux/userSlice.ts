@@ -19,7 +19,7 @@ interface IUserSlice{
 }
 
 const initialState:IUserSlice={
-    userData: {} as IUser,
+    userData: null,
     sachin: "sachin",
     
 }

@@ -24,6 +24,7 @@ import { createPortal } from "react-dom";
 import { a, h1 } from "motion/react-client";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
+import { redirect } from "next/navigation";
 
 interface IUser {
   _id?: mongoose.Schema.Types.ObjectId;
@@ -143,15 +144,14 @@ const Sidebar=menuopen?createPortal(
           <Search className="text-green-600 w-6 h-6" />
         </div>
         <Link
-          href={"/cart"}
+          href={"/user/cart"}
           className="relative bg-amber-50 rounded-full w-11 h-11 flex items-center justify-center
            shadow-md hover:scale-105 transition-transform"
         >
           <ShoppingBagIcon className="text-green-600 w-6 h-6" />
           <span
             className="absolute -top-1 -right-1 bg-red-500 text-white text-xs w-5 h-5
-            rounded-full flex items-center justify-center font-semibold"
-          >
+            rounded-full flex items-center justify-center font-semibold"      >
             {cartData.length}
           </span>
         </Link>

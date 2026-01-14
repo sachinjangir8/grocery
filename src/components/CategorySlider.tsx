@@ -81,7 +81,7 @@ export default function CategorySlider() {
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.4, delay: index * 0.1 }}
                             viewport={{ once: false }}
-                            className={`min-w-[160px] h-[180px] ${cat.color} rounded-2xl p-6 flex flex-col items-center justify-center text-center gap-4 shadow-sm hover:shadow-md transition-all cursor-pointer border border-white/50 flex-shrink-0`}
+                            className={`min-w-40 h-[180px] ${cat.color} rounded-2xl p-6 flex flex-col items-center justify-center text-center gap-4 shadow-sm hover:shadow-md transition-all cursor-pointer border border-white/50 flex-shrink-0`}
                         >
                             <div className="p-3 bg-white rounded-full shadow-sm">
                                 {cat.icon}
