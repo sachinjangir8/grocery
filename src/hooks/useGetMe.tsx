@@ -8,18 +8,13 @@ import { useDispatch } from 'react-redux'
 function UseGetme() {
     const dispatch = useDispatch<AppDispatch>()
   useEffect(() => {
-    const fetchData = async () => {
-    try {
-      const response = await axios.get('/api/me')
     //   console.log("User Data from useGetme:", response.data)
-    // now we will store the user data in the redux store
-        dispatch(setUserData(response.data))
-    } catch (error) {
-      console.error('There was an error!', error);
-    }
-  }
-  fetchData()
-}, [])
+    // now we will store the user data in the redux store using  dispatch(setUserData(res.data))
+  axios.get("/api/me", { withCredentials: true })
+    .then(res => dispatch(setUserData(res.data)))
+    .catch(console.error);
+}, []);
+
 }
 
 export default UseGetme

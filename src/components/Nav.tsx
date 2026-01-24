@@ -83,7 +83,7 @@ const Sidebar=menuopen?createPortal(
               <PlusCircle className="w-5 h-5 text-green-600 mr-2" /> Add Grocery
             </Link>
             <Link  href={"/admin/orders"} className="flex items-center gap-2 text-green-600 hover:text-green-700 transition-all bg-green-100 rounded-lg p-2" >
-              <Boxes className="w-5 h-5 text-green-600 mr-2" /> View Grocery
+              <Boxes className="w-5 h-5 text-green-600 mr-2" /> View Orders
             </Link>
             <Link  href={"/admin/users"} className="flex items-center gap-2 text-green-600 hover:text-green-700 transition-all bg-green-100 rounded-lg p-2  " >
             <Clipboard className="w-5 h-5 text-green-600 mr-2" /> Manage Grocery
@@ -230,7 +230,7 @@ const Sidebar=menuopen?createPortal(
                 </div>
                     {
                       user.role==="user" &&<> 
-                      <Link href="/profile" onClick={() => setOpen(false)}>
+                      <Link href="/user/my-order" onClick={() => setOpen(false)}>
                   <button className="flex w-full text-left py-2 px-3 hover:bg-green-300 rounded-b-lg text-green-800 ">
                     <Package className="w-5 h-5 text-green-800"></Package> my
                     orders

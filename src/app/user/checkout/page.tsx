@@ -18,6 +18,7 @@ import axios from 'axios';
 import { OpenStreetMapProvider } from 'leaflet-geosearch';
 import { useRouter } from "next/navigation";
 
+
 const MapContainer = dynamic(
     () => import("react-leaflet").then((mod) => mod.MapContainer),
     { ssr: false }
@@ -194,7 +195,6 @@ export default function CheckoutPage() {
                     quantity: item.quantity,
                     image: item.image,
                 })),
-                paymentMethod: "cod",
                 totalAmount: finaltotal,
                 address: {
                     fullName: address.fullname,       // ✅ FIX
@@ -205,7 +205,8 @@ export default function CheckoutPage() {
                     fullAddress: address.fulladdress, // ✅ FIX
                     latitude: position[0],
                     longitude: position[1],
-                }
+                },
+                paymentMethod: "cod",
             });
 
 
@@ -215,7 +216,45 @@ export default function CheckoutPage() {
             console.error("ORDER ERROR:", err);
         }
     };
-
+    const handleonline = async () => {
+        if (!userData?._id) {
+            alert("User not logged in");
+            return;
+        }
+        if (!position) {
+            alert("Location not selected");
+            return;
+        }
+        try {
+            const result=await axios.post('/api/user/payment',{
+                userId: userData._id,
+                items: cartData.map(item => ({
+                    grocery: item._id,
+                    name: item.name,
+                    price: item.price,
+                    unit: item.unit,
+                    quantity: item.quantity,
+                    image: item.image,
+                })),
+                totalAmount: finaltotal,
+                address: {
+                    fullName: address.fullname,       // ✅ FIX
+                    mobile: address.mobile,
+                    city: address.city,
+                    state: address.state,
+                    pincode: address.pincode,
+                    fullAddress: address.fulladdress, // ✅ FIX
+                    latitude: position[0],
+                    longitude: position[1],
+                },
+                paymentMethod: "online",
+            })
+            // result will provide a url 
+            window.location.href = result.data.url;
+        } catch (error) {
+            console.error("PAYMENT ERROR:", error);
+        }
+    };
 
     return (
         <motion.div
@@ -469,7 +508,7 @@ export default function CheckoutPage() {
                                     if (paymentMethod == "cod") {
                                         handlecod()
                                     } else {
-                                        // handleonline()
+                                        handleonline()
                                     }
                                 }}
                             >

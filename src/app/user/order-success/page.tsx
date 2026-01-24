@@ -63,7 +63,7 @@ export default function OrderSuccessPage() {
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.7 }}
         >
-          <Link href="/user/my-orders">
+          <Link href="/user/my-order">
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
