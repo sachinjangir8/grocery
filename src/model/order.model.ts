@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import { number } from "motion";
-interface IOrder{
+export interface IOrder{
   _id?:mongoose.Types.ObjectId
   user:mongoose.Types.ObjectId
   items: {

@@ -22,22 +22,33 @@ export async function POST(req: NextRequest) {
       process.env.STRIPE_WEBHOOK_SECRET!
     );
   } catch (err) {
-    console.error("Webhook signature verification failed:", err);
+    console.error("❌ Webhook signature verification failed:", err);
     return NextResponse.json({ error: "Invalid signature" }, { status: 400 });
   }
 
-  // Handle event
+  console.log("🔥 Event received:", event.type);
+
   if (event.type === "checkout.session.completed") {
     const session = event.data.object as Stripe.Checkout.Session;
 
+    console.log("Session metadata:", session.metadata);
+
+    if (!session.metadata?.orderId) {
+      console.error("❌ orderId missing in metadata");
+      return NextResponse.json({ error: "Missing orderId" }, { status: 400 });
+    }
+
     await connectDB();
 
-    await Order.findByIdAndUpdate(session.metadata?.orderId, {
-      isPaid: true,
-    });
+    const order = await Order.findByIdAndUpdate(
+      session.metadata.orderId,
+      { isPaid: true },
+      { new: true }
+    );
 
-    console.log("✅ Order marked as paid:", session.metadata?.orderId);
+    console.log("✅ Order updated:", order);
   }
 
-  return NextResponse.json({ received: true });
+  return NextResponse.json({ received: true }, { status: 200 });
 }
+

@@ -166,7 +166,7 @@ const Sidebar=menuopen?createPortal(
             <Link  href={"/admin/orders"} className="flex text-white bg-green-600 px-4 py-2 rounded-full hover:bg-green-700 transition-all" >
               <Boxes className="w-5 h-5 text-white mr-2" /> View Grocery
             </Link>
-            <Link  href={"/admin/users"} className="flex text-white bg-green-600 px-4 py-2 rounded-full hover:bg-green-700 transition-all" >
+            <Link  href={"/admin/manage-orders"} className="flex text-white bg-green-600 px-4 py-2 rounded-full hover:bg-green-700 transition-all" >
             <Clipboard className="w-5 h-5 text-white mr-2" /> Manage Grocery
             </Link>
           </div>
