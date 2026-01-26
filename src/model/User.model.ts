@@ -8,6 +8,20 @@ interface IUser {
     mobile?: string;
     role: "user" | "admin" | "deliveryBoy";
     image: string;
+    location: {
+        type: {
+            type: StringConstructor,
+            enum: string[],
+            default: string,
+        },
+        coordinates: {
+            type: NumberConstructor[],
+            default: number[],
+        },
+    },
+    socketId: string | null;
+    isOnline: boolean;
+    
     createdAt: Date;
     updatedAt: Date;
 }
@@ -41,10 +55,31 @@ const userSchema = new mongoose.Schema<IUser>(
         image: {
             type: String,
             required: false,
-        }
+        },
+        location: {
+            type: {
+                type: String,
+                enum: ["Point"],
+                default: "Point",
+            },
+            coordinates: {
+                type: [Number],
+                required: [0,0],
+            },
+        },
+        socketId: {
+            type: String,
+            default: null,
+        },
+        isOnline: {
+            type: Boolean,
+            default: false,
+        },
     },
     { timestamps: true }
 );
+
+userSchema.index({ location: "2dsphere" });
 // in ts we use it beacuse of it create a new model if not exists otherwise it will throw an error beacuse of the hot reloading
 const User = mongoose.models.User || mongoose.model<IUser>("User", userSchema);
 

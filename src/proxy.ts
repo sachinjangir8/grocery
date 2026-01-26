@@ -10,7 +10,8 @@ export  async function proxy(req: NextRequest) {
     "/register",
     "/api/auth",
     "/api/auth/callback/google",
-    "/api/auth/session"
+    "/api/auth/session",
+    "/api/socket/connect" 
   ];
 
   if (publicPaths.some((path) => pathname.startsWith(path))) {
