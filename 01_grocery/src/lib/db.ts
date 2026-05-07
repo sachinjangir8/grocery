@@ -1,12 +1,5 @@
 import mongoose from "mongoose";
-const MONGODB_URL = process.env.MONGODB_URL as string;
-
-if (!MONGODB_URL) {
-    throw new Error("MONGODB_URL is not defined");
-}
-
 // each api call will connect to the database and then return the connection so we need to use a global variable to store the connection
-
 let cached=global.mongoose;
 if(!cached){
     cached={
@@ -18,6 +11,12 @@ if(!cached){
 // connect db
 
 async function connectDB(){
+    const MONGODB_URL = process.env.MONGODB_URL as string;
+
+    if (!MONGODB_URL) {
+        throw new Error("MONGODB_URL is not defined");
+    }
+
     if(cached.conn){
         return cached.conn;
     }

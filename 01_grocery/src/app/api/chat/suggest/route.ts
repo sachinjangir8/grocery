@@ -2,9 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { GoogleGenAI } from "@google/genai";
 import { auth } from "@/auth";
 
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
-
 export async function POST(request: NextRequest) {
+    const ai = new GoogleGenAI(process.env.GEMINI_API_KEY as string);
     try {
         const session = await auth();
         if (!session) return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
