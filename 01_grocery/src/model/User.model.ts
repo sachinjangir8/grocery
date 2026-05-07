@@ -1,0 +1,93 @@
+import mongoose from "mongoose";
+const MONGODB_URL = process.env.MONGODB_URL as string;
+interface IUser {
+    _id?: mongoose.Schema.Types.ObjectId;
+    name: string;
+    email: string;
+    password?: string;
+    mobile?: string;
+    role: "user" | "admin" | "deliveryBoy";
+    image: string;
+    location: {
+        type: {
+            type: StringConstructor,
+            enum: string[],
+            default: string,
+        },
+        coordinates: {
+            type: NumberConstructor[],
+            default: number[],
+        },
+    },
+    socketId: string | null;
+    isOnline: boolean;
+    activeOrder?: mongoose.Schema.Types.ObjectId;
+    
+    createdAt: Date;
+    updatedAt: Date;
+}
+
+const userSchema = new mongoose.Schema<IUser>(
+    {
+        name: {
+            type: String,
+            required: true,
+        },
+        email: {
+             type: String, 
+             required: true,
+              unique: true 
+            },
+        password: {
+             type: String,
+              required: false 
+            },
+        mobile: { 
+            type: String,
+             required: false,
+              unique: false 
+            },
+        role: {
+            type: String,
+            required: true,
+            enum: ["user", "admin", "deliveryBoy"],
+            default: "user",
+        },
+        image: {
+            type: String,
+            required: false,
+        },
+        location: {
+            type: {
+                type: String,
+                enum: ["Point"],
+                default: "Point",
+            },
+            coordinates: {
+                type: [Number],
+                default: [0,0],
+            },
+        },
+        socketId: {
+            type: String,
+            default: null,
+        },
+        isOnline: {
+            type: Boolean,
+            default: false,
+        },
+        activeOrder: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Order",
+            default: null
+        },
+    },
+    { timestamps: true }
+);
+
+userSchema.index({ location: "2dsphere" });
+// in ts we use it beacuse of it create a new model if not exists otherwise it will throw an error beacuse of the hot reloading
+const User = mongoose.models.User || mongoose.model<IUser>("User", userSchema);
+
+export default User; 
+
