@@ -1,6 +1,7 @@
 import connectDB from "@/lib/db";
 import Grocery from "@/model/grocery.model";
 import { NextResponse } from "next/server";
+export const dynamic = "force-dynamic";
 
 export async function GET() {
     try {

@@ -10,6 +10,7 @@ import User from "@/model/User.model";
 
 import { redirect } from "next/navigation";
 import React from "react";
+export const dynamic = "force-dynamic";
 
 async function Home({ searchParams }: { searchParams: Promise<{ q?: string, category?: string }> }) {
   const { q, category } = await searchParams;

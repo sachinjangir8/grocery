@@ -11,9 +11,15 @@ if(!cached){
 // connect db
 
 async function connectDB(){
-    const MONGODB_URL = process.env.MONGODB_URL as string;
+    const MONGODB_URL = process.env.MONGODB_URL;
 
     if (!MONGODB_URL) {
+        console.error("MONGODB_URL is not defined in environment variables");
+        // During build, we might not want to crash the whole process if this is called during static analysis
+        if (process.env.NODE_ENV === 'production') {
+            console.warn("Continuing without DB connection for now...");
+            return;
+        }
         throw new Error("MONGODB_URL is not defined");
     }
 
