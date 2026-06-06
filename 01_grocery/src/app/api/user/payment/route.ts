@@ -4,7 +4,7 @@ import User from "@/model/User.model";
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 "last me ! mtlb ye aapko milegi hi milegi "
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!)
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "dummy_key")
 
 export async function POST(request: NextRequest) {
     try {
